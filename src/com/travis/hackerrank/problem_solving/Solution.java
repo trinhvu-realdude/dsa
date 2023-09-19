@@ -3,6 +3,11 @@ package com.travis.hackerrank.problem_solving;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
 
 class Result {
 
@@ -214,22 +219,94 @@ class Result {
                 ? ("0" + hour + ":" + time[1] + ":" + time[2]).replace("PM", "").replace("AM", "")
                 : (hour + ":" + time[1] + ":" + time[2]).replace("PM", "").replace("AM", "");
     }
+
+    /*
+     * Complete the 'gradingStudents' function below.
+     *
+     * The function is expected to return an INTEGER_ARRAY.
+     * The function accepts INTEGER_ARRAY grades as parameter.
+     */
+    public static List<Integer> gradingStudents(List<Integer> grades) {
+        // Write your code here
+        List<Integer> result = new ArrayList<>();
+        for (Integer originalGrade : grades) {
+            if (originalGrade > 10) {
+                if (originalGrade >= 38) {
+                    if (originalGrade % 5 != 0) {
+                        int finalGrade = 0;
+                        int minus = originalGrade - ((originalGrade / 10) * 10);
+
+                        if (minus > 5) finalGrade = originalGrade + (10 - minus);
+                        if (minus < 5) finalGrade = originalGrade + (5 - minus);
+
+                        if (finalGrade - originalGrade < 3) {
+                            result.add(finalGrade);
+                        } else {
+                            result.add(originalGrade);
+                        }
+                    } else {
+                        result.add(originalGrade);
+                    }
+                } else {
+                    result.add(originalGrade);
+                }
+            } else {
+                result.add(originalGrade);
+            }
+        }
+        return result;
+    }
+
+    /*
+     * Complete the 'countApplesAndOranges' function below.
+     *
+     * The function accepts following parameters:
+     *  1. INTEGER s
+     *  2. INTEGER t
+     *  3. INTEGER a
+     *  4. INTEGER b
+     *  5. INTEGER_ARRAY apples
+     *  6. INTEGER_ARRAY oranges
+     */
+    public static void countApplesAndOranges(int s, int t, int a, int b, List<Integer> apples, List<Integer> oranges) {
+        // Write your code here
+
+    }
 }
 
 public class Solution {
 
     public static void main(String[] args) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-        String s = bufferedReader.readLine();
+        String[] firstMultipleInput = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
 
-        String result = Result.timeConversion(s);
+        int s = Integer.parseInt(firstMultipleInput[0]);
 
-        bufferedWriter.write(result);
-        bufferedWriter.newLine();
+        int t = Integer.parseInt(firstMultipleInput[1]);
+
+        String[] secondMultipleInput = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
+
+        int a = Integer.parseInt(secondMultipleInput[0]);
+
+        int b = Integer.parseInt(secondMultipleInput[1]);
+
+        String[] thirdMultipleInput = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
+
+        int m = Integer.parseInt(thirdMultipleInput[0]);
+
+        int n = Integer.parseInt(thirdMultipleInput[1]);
+
+        List<Integer> apples = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
+                .map(Integer::parseInt)
+                .collect(toList());
+
+        List<Integer> oranges = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
+                .map(Integer::parseInt)
+                .collect(toList());
+
+        Result.countApplesAndOranges(s, t, a, b, apples, oranges);
 
         bufferedReader.close();
-        bufferedWriter.close();
     }
 }
