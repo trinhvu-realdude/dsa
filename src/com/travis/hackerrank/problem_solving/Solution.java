@@ -1,8 +1,7 @@
 package com.travis.hackerrank.problem_solving;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -270,7 +269,81 @@ class Result {
      */
     public static void countApplesAndOranges(int s, int t, int a, int b, List<Integer> apples, List<Integer> oranges) {
         // Write your code here
+        System.out.println(countFruit(s, t, apples, a));
+        System.out.println(countFruit(s, t, oranges, b));
+    }
 
+    private static int countFruit(int s, int t, List<Integer> fruits, int tree) {
+        int count = 0;
+
+        for (Integer fruit : fruits) {
+            int position = fruit + tree;
+            if (position >= s && position <= t) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    /*
+     * Complete the 'kangaroo' function below.
+     *
+     * The function is expected to return a STRING.
+     * The function accepts following parameters:
+     *  1. INTEGER x1
+     *  2. INTEGER v1
+     *  3. INTEGER x2
+     *  4. INTEGER v2
+     */
+    public static String kangaroo(int x1, int v1, int x2, int v2) {
+        // Write your code here
+        if (x1 == x2) return "YES";
+
+        if ((x1 > x2 && v1 >= v2) || (x2 > x1 && v2 >= v1)) {
+            return "NO";
+        }
+
+        return kangaroo(x1 + v1, v1, x2 + v2, v2);
+    }
+
+    /*
+     * Complete the 'getTotalX' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts following parameters:
+     *  1. INTEGER_ARRAY a
+     *  2. INTEGER_ARRAY b
+     */
+    public static int getTotalX(List<Integer> a, List<Integer> b) {
+        // Write your code here
+        boolean flagA = false;
+        boolean flagB = false;
+        int count = 0;
+        for (int i = a.get(a.size() - 1); i <= b.get(0); i++) {
+            for (Integer integer : a) {
+                if (i % integer == 0) {
+                    flagA = true;
+                } else {
+                    flagA = false;
+                    break;
+                }
+            }
+
+            if (flagA) {
+                for (Integer integer : b) {
+                    if (integer % i == 0) {
+                        flagB = true;
+                    } else {
+                        flagB = false;
+                        break;
+                    }
+                }
+                if (flagB) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 }
 
@@ -278,35 +351,28 @@ public class Solution {
 
     public static void main(String[] args) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
         String[] firstMultipleInput = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
 
-        int s = Integer.parseInt(firstMultipleInput[0]);
+        int n = Integer.parseInt(firstMultipleInput[0]);
 
-        int t = Integer.parseInt(firstMultipleInput[1]);
+        int m = Integer.parseInt(firstMultipleInput[1]);
 
-        String[] secondMultipleInput = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
-
-        int a = Integer.parseInt(secondMultipleInput[0]);
-
-        int b = Integer.parseInt(secondMultipleInput[1]);
-
-        String[] thirdMultipleInput = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
-
-        int m = Integer.parseInt(thirdMultipleInput[0]);
-
-        int n = Integer.parseInt(thirdMultipleInput[1]);
-
-        List<Integer> apples = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
+        List<Integer> arr = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
                 .map(Integer::parseInt)
                 .collect(toList());
 
-        List<Integer> oranges = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
+        List<Integer> brr = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
                 .map(Integer::parseInt)
                 .collect(toList());
 
-        Result.countApplesAndOranges(s, t, a, b, apples, oranges);
+        int total = Result.getTotalX(arr, brr);
+
+        bufferedWriter.write(String.valueOf(total));
+        bufferedWriter.newLine();
 
         bufferedReader.close();
+        bufferedWriter.close();
     }
 }
