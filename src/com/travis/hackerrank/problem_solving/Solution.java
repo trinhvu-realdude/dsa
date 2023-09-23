@@ -439,6 +439,53 @@ class Result {
         }
         return r2(k, ar, lastIndex, previousIndex - 1, count);
     }
+
+    /*
+     * Complete the 'migratoryBirds' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts INTEGER_ARRAY arr as parameter.
+     */
+    public static int migratoryBirds(List<Integer> arr) {
+        // Write your code here
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int maxFrequency = 0;
+
+        for (Integer num : arr) {
+            int frequency = map.getOrDefault(num, 0) + 1;
+            map.put(num, frequency);
+            if (frequency > maxFrequency) {
+                maxFrequency = frequency;
+            }
+        }
+
+        for (Integer key : map.keySet()) {
+            if (map.get(key) == maxFrequency) {
+                return key;
+            }
+        }
+
+        return -1;
+    }
+
+    /*
+     * Complete the 'dayOfProgrammer' function below.
+     *
+     * The function is expected to return a STRING.
+     * The function accepts INTEGER year as parameter.
+     */
+    public static String dayOfProgrammer(int year) {
+        // Write your code here
+        if (year >= 1700 && year <= 1917) {
+            // Julian calendar
+            return year % 4 == 0 ? "12.09." + year : "13.09." + year;
+        } else if (year >= 1919) {
+            // Gregorian calendar
+            return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0 ? "12.09." + year : "13.09." + year;
+        }
+        return "26.09." + year;
+
+    }
 }
 
 public class Solution {
@@ -447,19 +494,11 @@ public class Solution {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-        String[] firstMultipleInput = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
+        int year = Integer.parseInt(bufferedReader.readLine().trim());
 
-        int n = Integer.parseInt(firstMultipleInput[0]);
+        String result = Result.dayOfProgrammer(year);
 
-        int k = Integer.parseInt(firstMultipleInput[1]);
-
-        List<Integer> ar = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
-                .map(Integer::parseInt)
-                .collect(toList());
-
-        int result = Result.divisibleSumPairs(n, k, ar);
-
-        bufferedWriter.write(String.valueOf(result));
+        bufferedWriter.write(result);
         bufferedWriter.newLine();
 
         bufferedReader.close();
