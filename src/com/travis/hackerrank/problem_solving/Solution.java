@@ -345,6 +345,100 @@ class Result {
         }
         return count;
     }
+
+    /*
+     * Complete the 'breakingRecords' function below.
+     *
+     * The function is expected to return an INTEGER_ARRAY.
+     * The function accepts INTEGER_ARRAY scores as parameter.
+     */
+    public static List<Integer> breakingRecords(List<Integer> scores) {
+        // Write your code here
+        int highestScore = scores.get(0);
+        int lowestScore = scores.get(0);
+        int bestRecord = 0;
+        int worstRecord = 0;
+        for (Integer score : scores) {
+            if (score > highestScore) {
+                highestScore = score;
+                bestRecord++;
+            }
+            if (score < lowestScore) {
+                lowestScore = score;
+                worstRecord++;
+            }
+        }
+        List<Integer> result = new ArrayList<>();
+        result.add(bestRecord);
+        result.add(worstRecord);
+        return result;
+    }
+
+    /*
+     * Complete the 'birthday' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts following parameters:
+     *  1. INTEGER_ARRAY s
+     *  2. INTEGER d
+     *  3. INTEGER m
+     */
+    public static int birthday(List<Integer> s, int d, int m) {
+        // Write your code here
+        int count = 0;
+        for (int i = 0; i < s.size(); i++) {
+            int sum = 0;
+            int step = 0;
+            count = r1(s, i, sum, count, d, m, step);
+        }
+        return count;
+    }
+
+    private static int r1(List<Integer> s, int i, int sum, int count, int d, int m, int step) {
+        if (step == m || i == s.size()) {
+            if (sum == d) {
+                count++;
+                return count;
+            }
+            return count;
+        }
+        sum += s.get(i);
+
+        return r1(s, i + 1, sum, count, d, m, step + 1);
+    }
+
+    /*
+     * Complete the 'divisibleSumPairs' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts following parameters:
+     *  1. INTEGER n
+     *  2. INTEGER k
+     *  3. INTEGER_ARRAY ar
+     */
+    public static int divisibleSumPairs(int n, int k, List<Integer> ar) {
+        // Write your code here
+        int lastIndex = n - 1;
+        int previousIndex = lastIndex - 1;
+        int count = 0;
+        count = r2(k, ar, lastIndex, previousIndex, count);
+        return count;
+    }
+
+    private static int r2(int k, List<Integer> ar, int lastIndex, int previousIndex, int count) {
+        if (lastIndex == 0) {
+            return count;
+        }
+        if (previousIndex < 0) {
+            lastIndex--;
+            previousIndex = lastIndex - 1;
+            return r2(k, ar, lastIndex, previousIndex, count);
+        }
+        if ((ar.get(lastIndex) + ar.get(previousIndex)) % k == 0) {
+            count++;
+        }
+        return r2(k, ar, lastIndex, previousIndex - 1, count);
+    }
 }
 
 public class Solution {
@@ -357,19 +451,15 @@ public class Solution {
 
         int n = Integer.parseInt(firstMultipleInput[0]);
 
-        int m = Integer.parseInt(firstMultipleInput[1]);
+        int k = Integer.parseInt(firstMultipleInput[1]);
 
-        List<Integer> arr = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
+        List<Integer> ar = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
                 .map(Integer::parseInt)
                 .collect(toList());
 
-        List<Integer> brr = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
-                .map(Integer::parseInt)
-                .collect(toList());
+        int result = Result.divisibleSumPairs(n, k, ar);
 
-        int total = Result.getTotalX(arr, brr);
-
-        bufferedWriter.write(String.valueOf(total));
+        bufferedWriter.write(String.valueOf(result));
         bufferedWriter.newLine();
 
         bufferedReader.close();
