@@ -486,6 +486,109 @@ class Result {
         return "26.09." + year;
 
     }
+
+    /*
+     * Complete the 'bonAppetit' function below.
+     *
+     * The function accepts following parameters:
+     *  1. INTEGER_ARRAY bill
+     *  2. INTEGER k
+     *  3. INTEGER b
+     */
+    public static void bonAppetit(List<Integer> bill, int k, int b) {
+        // Write your code here
+
+        int sum = 0;
+        for (int i = 0; i < bill.size(); i++) {
+            if (i == k) {
+                continue;
+            }
+            sum += bill.get(i);
+        }
+        int actual = sum / 2;
+
+        System.out.println(actual == b ? "Bon Appetit" : b - actual);
+    }
+
+    /*
+     * Complete the 'sockMerchant' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts following parameters:
+     *  1. INTEGER n
+     *  2. INTEGER_ARRAY ar
+     */
+    public static int sockMerchant(int n, List<Integer> ar) {
+        // Write your code here
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        for (Integer sock : ar) {
+            int quantity = map.getOrDefault(sock, 0) + 1;
+            map.put(sock, quantity);
+        }
+
+        int count = 0;
+        for (Integer sock : map.keySet()) {
+            if (map.get(sock) >= 2) {
+                count += map.get(sock) / 2;
+            }
+        }
+
+        return count;
+    }
+
+    /*
+     * Complete the 'pageCount' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts following parameters:
+     *  1. INTEGER n
+     *  2. INTEGER p
+     */
+    public static int pageCount(int n, int p) {
+        // Write your code here
+        int i = 0;
+        int j = n % 2 == 0 ? n + 1 : n;
+        int jj = 0;
+
+        if (p == 1 || p == n) return 0;
+
+        while (i < j) {
+            if (i == p) {
+                if (i % 2 == 0) {
+                    return i / 2;
+                } else {
+                    return (i - 1) / 2;
+                }
+            }
+
+            if (j == p) {
+                if (j % 2 == 0) {
+                    return -jj / 2;
+                } else {
+                    return (-jj + 1) / 2;
+                }
+            }
+
+            i++;
+            j--;
+            jj--;
+        }
+        return -1;
+    }
+
+    /*
+     * Complete the 'countingValleys' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts following parameters:
+     *  1. INTEGER steps
+     *  2. STRING path
+     */
+    public static int countingValleys(int steps, String path) {
+        // Write your code here
+
+    }
 }
 
 public class Solution {
@@ -494,11 +597,13 @@ public class Solution {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-        int year = Integer.parseInt(bufferedReader.readLine().trim());
+        int steps = Integer.parseInt(bufferedReader.readLine().trim());
 
-        String result = Result.dayOfProgrammer(year);
+        String path = bufferedReader.readLine();
 
-        bufferedWriter.write(result);
+        int result = Result.countingValleys(steps, path);
+
+        bufferedWriter.write(String.valueOf(result));
         bufferedWriter.newLine();
 
         bufferedReader.close();
