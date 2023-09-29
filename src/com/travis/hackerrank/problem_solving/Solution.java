@@ -587,26 +587,82 @@ class Result {
      */
     public static int countingValleys(int steps, String path) {
         // Write your code here
+        int x;
+        int y = 0;
+        int valley = 0;
+        boolean isDown = false;
 
+        for (x = 0; x < steps; x++) {
+            if (path.charAt(x) == 'D') y--;
+            if (path.charAt(x) == 'U') y++;
+
+            if (y < 0) isDown = true;
+            if (isDown && y == 0) {
+                isDown = false;
+                valley++;
+            }
+        }
+        return valley;
     }
 }
 
 public class Solution {
 
+    /*
+     * Complete the getMoneySpent function below.
+     */
+    static int getMoneySpent(int[] keyboards, int[] drives, int b) {
+        /*
+         * Write your code here.
+         */
+
+    }
+
+    private static final Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-        int steps = Integer.parseInt(bufferedReader.readLine().trim());
+        String[] bnm = scanner.nextLine().split(" ");
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])*");
 
-        String path = bufferedReader.readLine();
+        int b = Integer.parseInt(bnm[0]);
 
-        int result = Result.countingValleys(steps, path);
+        int n = Integer.parseInt(bnm[1]);
 
-        bufferedWriter.write(String.valueOf(result));
+        int m = Integer.parseInt(bnm[2]);
+
+        int[] keyboards = new int[n];
+
+        String[] keyboardsItems = scanner.nextLine().split(" ");
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])*");
+
+        for (int keyboardsItr = 0; keyboardsItr < n; keyboardsItr++) {
+            int keyboardsItem = Integer.parseInt(keyboardsItems[keyboardsItr]);
+            keyboards[keyboardsItr] = keyboardsItem;
+        }
+
+        int[] drives = new int[m];
+
+        String[] drivesItems = scanner.nextLine().split(" ");
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])*");
+
+        for (int drivesItr = 0; drivesItr < m; drivesItr++) {
+            int drivesItem = Integer.parseInt(drivesItems[drivesItr]);
+            drives[drivesItr] = drivesItem;
+        }
+
+        /*
+         * The maximum amount of money she can spend on a keyboard and USB drive, or -1 if she can't purchase both items
+         */
+
+        int moneySpent = getMoneySpent(keyboards, drives, b);
+
+        bufferedWriter.write(String.valueOf(moneySpent));
         bufferedWriter.newLine();
 
-        bufferedReader.close();
         bufferedWriter.close();
+
+        scanner.close();
     }
 }
