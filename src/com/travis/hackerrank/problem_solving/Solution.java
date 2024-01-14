@@ -604,6 +604,89 @@ class Result {
         }
         return valley;
     }
+
+    /*
+     * Complete the 'pickingNumbers' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts INTEGER_ARRAY a as parameter.
+     */
+    public static int pickingNumbers(List<Integer> a) {
+        // Write your code here
+        List<Integer> sortedList = a.stream().sorted().collect(toList());
+        int i = 0;
+        int j = i + 1;
+        List<Integer> list = new ArrayList<>();
+        int longestLength = 0;
+
+        while (i < sortedList.size() - 1) {
+            int abs = Math.abs(sortedList.get(i) - sortedList.get(j));
+            if (abs <= 1) {
+                list.add(sortedList.get(j));
+            }
+            j++;
+            if (j == sortedList.size()) {
+                list.add(sortedList.get(i));
+                i++;
+                j = i + 1;
+                if (list.size() > longestLength) {
+                    longestLength = list.size();
+                }
+                list = new ArrayList<>();
+            }
+        }
+
+        return longestLength;
+    }
+
+    /*
+     * Complete the 'climbingLeaderboard' function below.
+     *
+     * The function is expected to return an INTEGER_ARRAY.
+     * The function accepts following parameters:
+     *  1. INTEGER_ARRAY ranked
+     *  2. INTEGER_ARRAY player
+     */
+
+    public static List<Integer> climbingLeaderboard(List<Integer> ranked, List<Integer> player) {
+        // Write your code here
+        return null;
+    }
+
+    /*
+     * Complete the 'formingMagicSquare' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts 2D_INTEGER_ARRAY s as parameter.
+     */
+    public static int formingMagicSquare(List<List<Integer>> s) {
+        // Write your code here
+        return -1;
+    }
+
+    /*
+     * Complete the 'hurdleRace' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts following parameters:
+     *  1. INTEGER k
+     *  2. INTEGER_ARRAY height
+     */
+
+    public static int hurdleRace(int k, List<Integer> height) {
+        // Write your code here
+        int min = 0;
+
+        for (Integer h: height) {
+            int doses = h - k;
+            if (doses > 0) {
+                if (doses > min) {
+                    min = doses;
+                }
+            }
+        }
+        return min;
+    }
 }
 
 public class Solution {
@@ -615,54 +698,52 @@ public class Solution {
         /*
          * Write your code here.
          */
+        int max = 0;
+        for (int keyboard : keyboards) {
+            for (int drive : drives) {
+                int totalCost = drive + keyboard;
+                if (totalCost <= b) {
+                    if (totalCost > max) {
+                        max = totalCost;
+                    }
+                }
+            }
+        }
+        return max != 0 ? max : -1;
+    }
 
+    // Complete the catAndMouse function below.
+    static String catAndMouse(int x, int y, int z) {
+        int distanceCToA = Math.abs(z - x);
+        int distanceCToB = Math.abs(z - y);
+
+        if (distanceCToA > distanceCToB) return "Cat A";
+        else if (distanceCToA < distanceCToB) return "Cat B";
+        else return "Mouse C";
     }
 
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-        String[] bnm = scanner.nextLine().split(" ");
-        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])*");
+        String[] firstMultipleInput = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
 
-        int b = Integer.parseInt(bnm[0]);
+        int n = Integer.parseInt(firstMultipleInput[0]);
 
-        int n = Integer.parseInt(bnm[1]);
+        int k = Integer.parseInt(firstMultipleInput[1]);
 
-        int m = Integer.parseInt(bnm[2]);
+        List<Integer> height = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
+                .map(Integer::parseInt)
+                .collect(toList());
 
-        int[] keyboards = new int[n];
+        int result = Result.hurdleRace(k, height);
 
-        String[] keyboardsItems = scanner.nextLine().split(" ");
-        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])*");
-
-        for (int keyboardsItr = 0; keyboardsItr < n; keyboardsItr++) {
-            int keyboardsItem = Integer.parseInt(keyboardsItems[keyboardsItr]);
-            keyboards[keyboardsItr] = keyboardsItem;
-        }
-
-        int[] drives = new int[m];
-
-        String[] drivesItems = scanner.nextLine().split(" ");
-        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])*");
-
-        for (int drivesItr = 0; drivesItr < m; drivesItr++) {
-            int drivesItem = Integer.parseInt(drivesItems[drivesItr]);
-            drives[drivesItr] = drivesItem;
-        }
-
-        /*
-         * The maximum amount of money she can spend on a keyboard and USB drive, or -1 if she can't purchase both items
-         */
-
-        int moneySpent = getMoneySpent(keyboards, drives, b);
-
-        bufferedWriter.write(String.valueOf(moneySpent));
+        bufferedWriter.write(String.valueOf(result));
         bufferedWriter.newLine();
 
+        bufferedReader.close();
         bufferedWriter.close();
-
-        scanner.close();
     }
 }
