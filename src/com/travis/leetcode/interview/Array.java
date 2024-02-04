@@ -57,7 +57,23 @@ public class Array {
      * @param nums
      */
     public void moveZeroes(int[] nums) {
+        int i = 0;
+        int j = 0;
 
+        while (i < nums.length) {
+            if (nums[i] != 0) {
+                nums[j] = nums[i];
+                j++;
+            }
+            i++;
+        }
+
+        while (i > j) {
+            nums[i - 1] = 0;
+            i--;
+        }
+
+        printArray(nums);
     }
 
     /**
@@ -71,27 +87,27 @@ public class Array {
         Map<Integer, Integer> map = new HashMap<>();
 
         for (int i = 0; i < nums.length; i++) {
-            map.put(nums[i], i);
-
-            if (target - nums[i] == nums[map.get(nums[i])]) {
-                return new int[]{i, map.get(nums[i])};
+            int num = target - nums[i];
+            if (map.get(num) != null) {
+                return new int[]{i, map.get(num)};
             }
+            map.put(nums[i], i);
         }
         return null;
+    }
+
+    public void printArray(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
     }
 
     public static void main(String[] args) {
         Array solution = new Array();
 
-        int[] nums = {2, 7, 11, 15};
+        int[] nums = {0, 1, 0, 3, 12};
 
-        int target = 9;
-
-        int[] result = solution.twoSum(nums, target);
-
-        for (int i = 0; i < result.length; i++) {
-            System.out.print(result[i] + " ");
-        }
-        System.out.println();
+        solution.moveZeroes(nums);
     }
 }
