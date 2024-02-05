@@ -1,7 +1,6 @@
 package com.travis.leetcode.interview;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Array {
 
@@ -72,8 +71,6 @@ public class Array {
             nums[i - 1] = 0;
             i--;
         }
-
-        printArray(nums);
     }
 
     /**
@@ -96,7 +93,57 @@ public class Array {
         return null;
     }
 
-    public void printArray(int[] arr) {
+    /**
+     * Plus One
+     *
+     * @param digits
+     * @return
+     */
+    public int[] plusOne(int[] digits) {
+        for (int i = digits.length - 1; i >= 0; i--) {
+            if (digits[i] < 9) {
+                digits[i]++;
+                return digits;
+            }
+            digits[i] = 0;
+        }
+
+        digits = new int[digits.length + 1];
+        digits[0] = 1;
+        return digits;
+    }
+
+    /**
+     * Rotate Array
+     *
+     * @param nums
+     * @param k
+     */
+    public void rotate(int[] nums, int k) {
+        int lastIndex = nums.length - 1;
+
+        int i = lastIndex;
+        int j = i - 1;
+
+        int rotateElm = nums[lastIndex];
+
+        while (k > 0) {
+            if (j < 0) break;
+            nums[i] = nums[j];
+            i--;
+            j--;
+
+            if (i == 0) {
+                nums[0] = rotateElm;
+                rotateElm = nums[lastIndex];
+                i = lastIndex;
+                j = i - 1;
+                k--;
+            }
+        }
+    }
+
+    public static void printArray(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i] + " ");
         }
@@ -106,8 +153,10 @@ public class Array {
     public static void main(String[] args) {
         Array solution = new Array();
 
-        int[] nums = {0, 1, 0, 3, 12};
+        int[] digits = {9, 9, 9};
 
-        solution.moveZeroes(nums);
+        int[] result = solution.plusOne(digits);
+
+        printArray(result);
     }
 }
