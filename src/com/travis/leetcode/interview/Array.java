@@ -143,6 +143,28 @@ public class Array {
         }
     }
 
+    /**
+     * Contains Duplicate
+     *
+     * @param nums
+     * @return
+     */
+    public boolean containsDuplicate(int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>();
+
+        int value = 0;
+
+        for (int num : nums) {
+            if (map.get(num) != null) {
+                return true;
+            } else {
+                map.put(num, value + 1);
+            }
+        }
+
+        return false;
+    }
+
     public static void printArray(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i] + " ");
@@ -153,10 +175,9 @@ public class Array {
     public static void main(String[] args) {
         Array solution = new Array();
 
-        int[] digits = {9, 9, 9};
+        int[] nums = {0};
+        boolean result = solution.containsDuplicate(nums);
 
-        int[] result = solution.plusOne(digits);
-
-        printArray(result);
+        System.out.println(result);
     }
 }
