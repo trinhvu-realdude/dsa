@@ -120,27 +120,13 @@ public class Array {
      * @param k
      */
     public void rotate(int[] nums, int k) {
-        int lastIndex = nums.length - 1;
+        int[] v = new int[nums.length];
 
-        int i = lastIndex;
-        int j = i - 1;
-
-        int rotateElm = nums[lastIndex];
-
-        while (k > 0) {
-            if (j < 0) break;
-            nums[i] = nums[j];
-            i--;
-            j--;
-
-            if (i == 0) {
-                nums[0] = rotateElm;
-                rotateElm = nums[lastIndex];
-                i = lastIndex;
-                j = i - 1;
-                k--;
-            }
+        for (int i = 0; i < v.length; i++) {
+            v[i] = nums[i];
         }
+
+
     }
 
     /**
@@ -165,6 +151,25 @@ public class Array {
         return false;
     }
 
+    /**
+     * Single Number
+     *
+     * @param nums
+     * @return
+     */
+    public int singleNumber(int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (map.get(nums[i]) != null) {
+                map.remove(nums[i]);
+            } else {
+                map.put(nums[i], i);
+            }
+        }
+
+        return (int) map.keySet().toArray()[0];
+    }
+
     public static void printArray(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i] + " ");
@@ -175,9 +180,11 @@ public class Array {
     public static void main(String[] args) {
         Array solution = new Array();
 
-        int[] nums = {0};
-        boolean result = solution.containsDuplicate(nums);
+        int[] nums = {1, 2, 3, 4, 5, 6, 7};
+        int k = 3;
 
-        System.out.println(result);
+        solution.rotate(nums, k);
+
+        printArray(nums);
     }
 }
