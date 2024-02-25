@@ -174,7 +174,6 @@ class Interview {
     }
 
     public static class String {
-
         /**
          * Reverse String
          *
@@ -219,15 +218,88 @@ class Interview {
 
             return -1;
         }
+
+        /**
+         * Valid Palindrome
+         *
+         * @param s
+         * @return
+         */
+        public boolean isPalindrome(java.lang.String s) {
+            s = s.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+
+            if (s.length() > 0) {
+                StringBuilder reverse = new StringBuilder();
+
+                int i = s.length() - 1;
+                while (i >= 0) {
+                    reverse.append(s.charAt(i));
+                    i--;
+                }
+
+                return reverse.toString().equals(s);
+            }
+            return true;
+        }
+
+        /**
+         * Implement strStr()
+         *
+         * @param haystack
+         * @param needle
+         * @return
+         */
+        public int strStr(java.lang.String haystack, java.lang.String needle) {
+            return haystack.indexOf(needle);
+        }
+
+        /**
+         * Longest Common Prefix
+         *
+         * @param strs
+         * @return
+         */
+        public java.lang.String longestCommonPrefix(java.lang.String[] strs) {
+            return null;
+        }
+    }
+
+    public static class DynamicProgramming {
+        /**
+         * Climbing Stairs
+         *
+         * @param n
+         * @return
+         */
+        public int climbStairs(int n) {
+            return -1;
+        }
+
+        /**
+         * Best Time to Buy and Sell Stock
+         *
+         * @param prices
+         * @return
+         */
+        public int maxProfit(int[] prices) {
+            int max = 0;
+            int buy = prices[0];
+            for (int price : prices) {
+                if (price < buy) buy = price;
+                int profit = price - buy;
+                if (profit > max) max = profit;
+            }
+            return max;
+        }
     }
 }
 
 public class Main {
     public static void main(String[] args) {
-        Interview.String solution = new Interview.String();
+        Interview.DynamicProgramming solution = new Interview.DynamicProgramming();
 
-        String s = "aabb";
+        int[] nums = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
 
-        System.out.println(solution.firstUniqChar(s));
+        System.out.println(solution.maxProfit(nums));
     }
 }
