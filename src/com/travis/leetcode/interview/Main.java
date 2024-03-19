@@ -121,7 +121,20 @@ class Interview {
          * @param k
          */
         public void rotate(int[] nums, int k) {
+            k = k % nums.length;
+            reverse(nums, 0, nums.length - 1);
+            reverse(nums, 0, k - 1);
+            reverse(nums, k, nums.length - 1);
+        }
 
+        public void reverse(int[] nums, int start, int end) {
+            while (start < end) {
+                int temp = nums[start];
+                nums[start] = nums[end];
+                nums[end] = temp;
+                start++;
+                end--;
+            }
         }
 
         /**
@@ -163,6 +176,10 @@ class Interview {
             }
 
             return (int) map.keySet().toArray()[0];
+        }
+
+        public int[] intersect(int[] nums1, int[] nums2) {
+            return null;
         }
 
         public static void printArray(int[] arr) {
@@ -272,7 +289,14 @@ class Interview {
          * @return
          */
         public int climbStairs(int n) {
-            return -1;
+            int[] arr = new int[n + 1];
+            arr[0] = 1;
+            arr[1] = 1;
+
+            for (int i = 2; i <= n; i++)
+                arr[i] = arr[i - 1] + arr[i - 2];
+
+            return arr[n];
         }
 
         /**
@@ -296,10 +320,13 @@ class Interview {
 
 public class Main {
     public static void main(String[] args) {
-        Interview.DynamicProgramming solution = new Interview.DynamicProgramming();
+        Interview.Array solution = new Interview.Array();
 
-        int[] nums = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
+        int[] nums = {1, 2, 3, 4, 5, 6, 7};
+        int k = 3;
 
-        System.out.println(solution.maxProfit(nums));
+        solution.rotate(nums, k);
+
+        Interview.Array.printArray(nums);
     }
 }
