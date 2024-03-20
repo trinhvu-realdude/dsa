@@ -178,15 +178,73 @@ class Interview {
             return (int) map.keySet().toArray()[0];
         }
 
+        /**
+         * Intersection of Two Arrays II
+         *
+         * @param nums1
+         * @param nums2
+         * @return
+         */
         public int[] intersect(int[] nums1, int[] nums2) {
-            return null;
+            Arrays.sort(nums1);
+            Arrays.sort(nums2);
+
+            List<Integer> result = new ArrayList<>();
+
+            int i = 0;
+            int j = 0;
+            while (i < nums1.length && j < nums2.length) {
+                if (nums1[i] == nums2[j]) {
+                    result.add(nums1[i]);
+                    i++;
+                    j++;
+                } else if (nums1[i] < nums2[j]) {
+                    i++;
+                } else {
+                    j++;
+                }
+            }
+
+            int[] v = new int[result.size()];
+            for (int k = 0; k < v.length; k++) {
+                v[k] = result.get(k);
+            }
+
+            return v;
+        }
+
+        /**
+         * Rotate Image
+         *
+         * @param matrix
+         */
+        public void rotate(int[][] matrix) {
+//            reverse(matrix, 0, matrix.length - 1);
+//
+//            int i = 0;
+//            int j = 0;
+//
+//            while ()
+        }
+
+        public void reverse(int[][] matrix, int start, int end) {
+            while (start < end) {
+                int[] temp = matrix[start];
+                matrix[start] = matrix[end];
+                matrix[end] = temp;
+                start++;
+                end--;
+            }
         }
 
         public static void printArray(int[] arr) {
-            for (int i = 0; i < arr.length; i++) {
-                System.out.print(arr[i] + " ");
+            System.out.println(Arrays.toString(arr));
+        }
+
+        public static void printMatrix(int[][] matrix) {
+            for (int[] row : matrix) {
+                System.out.println(Arrays.toString(row));
             }
-            System.out.println();
         }
     }
 
@@ -322,11 +380,10 @@ public class Main {
     public static void main(String[] args) {
         Interview.Array solution = new Interview.Array();
 
-        int[] nums = {1, 2, 3, 4, 5, 6, 7};
-        int k = 3;
+        int[][] matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
 
-        solution.rotate(nums, k);
+        solution.rotate(matrix);
 
-        Interview.Array.printArray(nums);
+        Interview.Array.printMatrix(matrix);
     }
 }
