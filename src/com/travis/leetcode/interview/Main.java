@@ -219,12 +219,15 @@ class Interview {
          * @param matrix
          */
         public void rotate(int[][] matrix) {
-//            reverse(matrix, 0, matrix.length - 1);
-//
-//            int i = 0;
-//            int j = 0;
-//
-//            while ()
+            reverse(matrix, 0, matrix.length - 1);
+
+            for (int i = 0; i < matrix.length; i++) {
+                for (int j = i + 1; j < matrix[i].length; j++) {
+                    int temp = matrix[i][j];
+                    matrix[i][j] = matrix[j][i];
+                    matrix[j][i] = temp;
+                }
+            }
         }
 
         public void reverse(int[][] matrix, int start, int end) {
@@ -235,6 +238,16 @@ class Interview {
                 start++;
                 end--;
             }
+        }
+
+        /**
+         * Valid Sudoku
+         *
+         * @param board
+         * @return
+         */
+        public boolean isValidSudoku(char[][] board) {
+
         }
 
         public static void printArray(int[] arr) {
