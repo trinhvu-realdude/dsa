@@ -127,7 +127,7 @@ class Interview {
             reverse(nums, k, nums.length - 1);
         }
 
-        public void reverse(int[] nums, int start, int end) {
+        private void reverse(int[] nums, int start, int end) {
             while (start < end) {
                 int temp = nums[start];
                 nums[start] = nums[end];
@@ -230,7 +230,7 @@ class Interview {
             }
         }
 
-        public void reverse(int[][] matrix, int start, int end) {
+        private void reverse(int[][] matrix, int start, int end) {
             while (start < end) {
                 int[] temp = matrix[start];
                 matrix[start] = matrix[end];
@@ -354,7 +354,7 @@ class Interview {
             return s1.equals(t1);
         }
 
-        public java.lang.String sort(java.lang.String s) {
+        private java.lang.String sort(java.lang.String s) {
             StringBuilder result = new StringBuilder();
             char[] chars = s.toCharArray();
             Arrays.sort(chars);
@@ -443,6 +443,26 @@ class Interview {
             }
             return max;
         }
+
+        /**
+         * Maximum Subarray
+         *
+         * @param nums
+         * @return
+         */
+        public int maxSubArray(int[] nums) {
+            return -1;
+        }
+
+        /**
+         * House Robber
+         *
+         * @param nums
+         * @return
+         */
+        public int rob(int[] nums) {
+            return -1;
+        }
     }
 
     public static class SortingAndSearching {
@@ -465,20 +485,53 @@ class Interview {
             }
             Arrays.sort(nums1);
         }
+
+        /**
+         * First Bad Version
+         *
+         * @param n
+         * @return
+         */
+        public int firstBadVersion(int n) {
+            // use Binary Search
+            int left = 1;
+            int right = n;
+
+            while (left <= right) {
+                int mid = left + (right - left) / 2;
+
+                if (isBadVersion(mid)) {
+                    if (!isBadVersion(mid - 1)) {
+                        return mid;
+                    } else {
+                        right = mid - 1;
+                    }
+                } else {
+                    left = mid + 1;
+                }
+            }
+            return -1;
+        }
+
+        /**
+         * The isBadVersion API is defined in the parent class VersionControl in Leetcode.
+         * boolean isBadVersion(int version);
+         *
+         * @param version
+         * @return
+         */
+        public boolean isBadVersion(int version) {
+            return false;
+        }
     }
 }
 
 public class Main {
     public static void main(String[] args) {
-        Interview.SortingAndSearching solution = new Interview.SortingAndSearching();
+        Interview.DynamicProgramming solution = new Interview.DynamicProgramming();
 
-        int[] nums1 = {0};
-        int m = 0;
-        int[] nums2 = {1};
-        int n = 1;
+        int[] nums = {2, 1, 1, 2};
 
-        solution.merge(nums1, m, nums2, n);
-
-        Interview.Array.printArray(nums1);
+        System.out.println(solution.rob(nums));
     }
 }
