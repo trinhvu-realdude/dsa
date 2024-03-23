@@ -247,7 +247,7 @@ class Interview {
          * @return
          */
         public boolean isValidSudoku(char[][] board) {
-
+            return false;
         }
 
         public static void printArray(int[] arr) {
@@ -342,13 +342,70 @@ class Interview {
         }
 
         /**
+         * Valid Anagram
+         *
+         * @param s
+         * @param t
+         * @return
+         */
+        public boolean isAnagram(java.lang.String s, java.lang.String t) {
+            java.lang.String s1 = sort(s);
+            java.lang.String t1 = sort(t);
+            return s1.equals(t1);
+        }
+
+        public java.lang.String sort(java.lang.String s) {
+            StringBuilder result = new StringBuilder();
+            char[] chars = s.toCharArray();
+            Arrays.sort(chars);
+
+            for (char c : chars) {
+                result.append(c);
+            }
+            return result.toString();
+        }
+
+        /**
          * Longest Common Prefix
          *
          * @param strs
          * @return
          */
         public java.lang.String longestCommonPrefix(java.lang.String[] strs) {
-            return null;
+            Arrays.sort(strs);
+            java.lang.String s1 = strs[0];
+            java.lang.String s2 = strs[strs.length - 1];
+
+            int i = 0;
+
+            while (i < s1.length() && i < s2.length()) {
+                if (s1.charAt(i) == s2.charAt(i)) {
+                    i++;
+                } else {
+                    break;
+                }
+            }
+            return s1.substring(0, i);
+        }
+
+        /**
+         * Reverse Integer
+         *
+         * @param x
+         * @return
+         */
+        public int reverse(int x) {
+            return -1;
+        }
+
+        /**
+         * String to Integer (atoi)
+         *
+         * @param s
+         * @return
+         */
+        public int myAtoi(String s) {
+            return -1;
         }
     }
 
@@ -387,16 +444,41 @@ class Interview {
             return max;
         }
     }
+
+    public static class SortingAndSearching {
+        /**
+         * Merge Sorted Array
+         *
+         * @param nums1
+         * @param m
+         * @param nums2
+         * @param n
+         */
+        public void merge(int[] nums1, int m, int[] nums2, int n) {
+            int i = m;
+            int j = 0;
+
+            while (i < nums1.length && j <= n) {
+                nums1[i] = nums2[j];
+                i++;
+                j++;
+            }
+            Arrays.sort(nums1);
+        }
+    }
 }
 
 public class Main {
     public static void main(String[] args) {
-        Interview.Array solution = new Interview.Array();
+        Interview.SortingAndSearching solution = new Interview.SortingAndSearching();
 
-        int[][] matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        int[] nums1 = {0};
+        int m = 0;
+        int[] nums2 = {1};
+        int n = 1;
 
-        solution.rotate(matrix);
+        solution.merge(nums1, m, nums2, n);
 
-        Interview.Array.printMatrix(matrix);
+        Interview.Array.printArray(nums1);
     }
 }
