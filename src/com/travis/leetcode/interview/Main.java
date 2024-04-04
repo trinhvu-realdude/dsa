@@ -579,19 +579,26 @@ class Interview {
             }
         }
 
+        /**
+         * Maximum Depth of Binary Tree
+         *
+         * @param root
+         * @return
+         */
         public int maxDepth(TreeNode root) {
             int depth = 0;
-            maxDepthRecursive(depth, root);
-            System.out.println();
+            depth = maxDepthRecursive(depth, root);
             return depth;
         }
 
-        public void maxDepthRecursive(int depth, TreeNode node) {
+        public int maxDepthRecursive(int depth, TreeNode node) {
             if (node != null) {
-                System.out.print(node.val + " ");
-                maxDepthRecursive(depth, node.left);
-                maxDepthRecursive(depth, node.right);
+                depth = depth + 1;
+                int r1 = maxDepthRecursive(depth, node.left);
+                int r2 = maxDepthRecursive(depth, node.right);
+                return Math.max(r1, r2);
             }
+            return depth;
         }
     }
 }
