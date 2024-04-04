@@ -524,14 +524,89 @@ class Interview {
             return false;
         }
     }
+
+    public static class BinaryTree {
+        static class TreeNode {
+            int val;
+            TreeNode left;
+            TreeNode right;
+
+            TreeNode() {
+            }
+
+            TreeNode(int val) {
+                this.val = val;
+            }
+
+            TreeNode(int val, TreeNode left, TreeNode right) {
+                this.val = val;
+                this.left = left;
+                this.right = right;
+            }
+        }
+
+        TreeNode root;
+
+        BinaryTree(int val) {
+            root = new TreeNode(val);
+        }
+
+        BinaryTree() {
+            root = null;
+        }
+
+        public void preOrderTraversal(TreeNode node) {
+            if (node != null) {
+                System.out.print(node.val + " ");
+                preOrderTraversal(node.left);
+                preOrderTraversal(node.right);
+            }
+        }
+
+        public void inOrderTraversal(TreeNode node) {
+            if (node != null) {
+                inOrderTraversal(node.left);
+                System.out.print(node.val + " ");
+                inOrderTraversal(node.right);
+            }
+        }
+
+        public void postOrderTraversal(TreeNode node) {
+            if (node != null) {
+                postOrderTraversal(node.left);
+                postOrderTraversal(node.right);
+                System.out.print(node.val + " ");
+            }
+        }
+
+        public int maxDepth(TreeNode root) {
+            int depth = 0;
+            maxDepthRecursive(depth, root);
+            System.out.println();
+            return depth;
+        }
+
+        public void maxDepthRecursive(int depth, TreeNode node) {
+            if (node != null) {
+                System.out.print(node.val + " ");
+                maxDepthRecursive(depth, node.left);
+                maxDepthRecursive(depth, node.right);
+            }
+        }
+    }
 }
 
 public class Main {
     public static void main(String[] args) {
-        Interview.DynamicProgramming solution = new Interview.DynamicProgramming();
+        Interview.BinaryTree tree = new Interview.BinaryTree();
 
-        int[] nums = {2, 1, 1, 2};
+        tree.root = new Interview.BinaryTree.TreeNode(3);
+        tree.root.left = new Interview.BinaryTree.TreeNode(9);
+        tree.root.right = new Interview.BinaryTree.TreeNode(20);
 
-        System.out.println(solution.rob(nums));
+        tree.root.right.left = new Interview.BinaryTree.TreeNode(15);
+        tree.root.right.right = new Interview.BinaryTree.TreeNode(7);
+
+        System.out.println(tree.maxDepth(tree.root));
     }
 }
