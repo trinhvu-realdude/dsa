@@ -579,6 +579,20 @@ class Interview {
             }
         }
 
+        public void print(TreeNode node) {
+            System.out.print("Pre-order Traversal: ");
+            preOrderTraversal(node);
+            System.out.println();
+
+            System.out.print("In-order Traversal: ");
+            inOrderTraversal(node);
+            System.out.println();
+
+            System.out.print("Post-order Traversal: ");
+            postOrderTraversal(node);
+            System.out.println();
+        }
+
         /**
          * Maximum Depth of Binary Tree
          *
@@ -596,24 +610,43 @@ class Interview {
                 depth = depth + 1;
                 int r1 = maxDepthRecursive(depth, node.left);
                 int r2 = maxDepthRecursive(depth, node.right);
-                return Math.max(r1, r2);
+                return java.lang.Math.max(r1, r2);
             }
             return depth;
+        }
+    }
+
+    public static class Math {
+
+        /**
+         * Fizz Buzz
+         *
+         * @param n
+         * @return
+         */
+        public List<java.lang.String> fizzBuzz(int n) {
+            List<java.lang.String> list = new ArrayList<>();
+            for (int i = 1; i <= n; i++) {
+                if (i % 3 != 0 && i % 5 != 0) {
+                    list.add(java.lang.String.valueOf(i));
+                } else {
+                    if (i % 3 == 0 && i % 5 == 0) {
+                        list.add("FizzBuzz");
+                    } else {
+                        if (i % 3 == 0) list.add("Fizz");
+                        if (i % 5 == 0) list.add("Buzz");
+                    }
+                }
+            }
+            return list;
         }
     }
 }
 
 public class Main {
     public static void main(String[] args) {
-        Interview.BinaryTree tree = new Interview.BinaryTree();
-
-        tree.root = new Interview.BinaryTree.TreeNode(3);
-        tree.root.left = new Interview.BinaryTree.TreeNode(9);
-        tree.root.right = new Interview.BinaryTree.TreeNode(20);
-
-        tree.root.right.left = new Interview.BinaryTree.TreeNode(15);
-        tree.root.right.right = new Interview.BinaryTree.TreeNode(7);
-
-        System.out.println(tree.maxDepth(tree.root));
+        Interview.Math solution = new Interview.Math();
+        int n = 15;
+        System.out.println(solution.fizzBuzz(n));
     }
 }
