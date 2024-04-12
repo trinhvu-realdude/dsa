@@ -261,7 +261,7 @@ class Interview {
         }
     }
 
-    public static class String {
+    public static class Strings {
         /**
          * Reverse String
          *
@@ -286,7 +286,7 @@ class Interview {
          * @param s
          * @return
          */
-        public int firstUniqChar(java.lang.String s) {
+        public int firstUniqChar(String s) {
             Map<Character, Integer> map = new HashMap<>();
 
             for (int i = 0; i < s.length(); i++) {
@@ -313,7 +313,7 @@ class Interview {
          * @param s
          * @return
          */
-        public boolean isPalindrome(java.lang.String s) {
+        public boolean isPalindrome(String s) {
             s = s.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 
             if (s.length() > 0) {
@@ -337,7 +337,7 @@ class Interview {
          * @param needle
          * @return
          */
-        public int strStr(java.lang.String haystack, java.lang.String needle) {
+        public int strStr(String haystack, String needle) {
             return haystack.indexOf(needle);
         }
 
@@ -348,13 +348,13 @@ class Interview {
          * @param t
          * @return
          */
-        public boolean isAnagram(java.lang.String s, java.lang.String t) {
-            java.lang.String s1 = sort(s);
-            java.lang.String t1 = sort(t);
+        public boolean isAnagram(String s, String t) {
+            String s1 = sort(s);
+            String t1 = sort(t);
             return s1.equals(t1);
         }
 
-        private java.lang.String sort(java.lang.String s) {
+        private String sort(String s) {
             StringBuilder result = new StringBuilder();
             char[] chars = s.toCharArray();
             Arrays.sort(chars);
@@ -371,10 +371,10 @@ class Interview {
          * @param strs
          * @return
          */
-        public java.lang.String longestCommonPrefix(java.lang.String[] strs) {
+        public String longestCommonPrefix(String[] strs) {
             Arrays.sort(strs);
-            java.lang.String s1 = strs[0];
-            java.lang.String s2 = strs[strs.length - 1];
+            String s1 = strs[0];
+            String s2 = strs[strs.length - 1];
 
             int i = 0;
 
@@ -624,11 +624,11 @@ class Interview {
          * @param n
          * @return
          */
-        public List<java.lang.String> fizzBuzz(int n) {
-            List<java.lang.String> list = new ArrayList<>();
+        public List<String> fizzBuzz(int n) {
+            List<String> list = new ArrayList<>();
             for (int i = 1; i <= n; i++) {
                 if (i % 3 != 0 && i % 5 != 0) {
-                    list.add(java.lang.String.valueOf(i));
+                    list.add(String.valueOf(i));
                 } else {
                     if (i % 3 == 0 && i % 5 == 0) {
                         list.add("FizzBuzz");
@@ -640,13 +640,23 @@ class Interview {
             }
             return list;
         }
+
+        /**
+         * Count Primes using Sieve of Eratosthenes algorithm
+         *
+         * @param n
+         * @return
+         */
+        public int countPrimes(int n) {
+            return -1;
+        }
     }
 }
 
 public class Main {
     public static void main(String[] args) {
         Interview.Math solution = new Interview.Math();
-        int n = 15;
-        System.out.println(solution.fizzBuzz(n));
+        int n = 100;
+        System.out.println(solution.countPrimes(n));
     }
 }
