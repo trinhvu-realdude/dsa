@@ -1,6 +1,9 @@
 package com.travis.leetcode.array;
 
+import java.util.*;
+
 public class Solution {
+
     public int findMaxConsecutiveOnes(int[] nums) {
         int max = 0;
         int count = 0;
@@ -69,11 +72,30 @@ public class Solution {
         }
         return v;
     }
+
+    public boolean isPossibleToSplit(int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>();
+
+        for (int num : nums) {
+            Integer occurrence = map.get(num);
+            if (occurrence != null) {
+                map.put(num, occurrence + 1);
+            } else {
+                map.put(num, 1);
+            }
+        }
+
+        for (Integer value : map.values()) {
+            if (value > 2) return false;
+        }
+        return true;
+    }
 }
 
 class Main {
     public static void main(String[] args) {
         Solution solution = new Solution();
-        int[] nums = {5, 7, 0, 3, 10};
+        int[] nums = {1, 1, 2, 2, 3, 4};
+        System.out.println(solution.isPossibleToSplit(nums));
     }
 }
