@@ -1,14 +1,15 @@
 package com.travis.leetcode.problems;
 
-import com.travis.leetcode.problems.difficulty.Easy;
+import com.travis.leetcode.problems.roadmap.ArrayHashing;
 
 import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        Easy easy = new Easy();
+        ArrayHashing arrayHashing = new ArrayHashing();
 
-        String[] strs = {"flower", "flow", "flight"};
-        System.out.println(easy.longestCommonPrefix(strs));
+        String[] strs = {"eat", "tea", "tan", "ate", "nat", "bat"};
+
+        System.out.println(arrayHashing.groupAnagrams(strs));
     }
 }
