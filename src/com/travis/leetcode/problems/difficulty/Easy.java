@@ -183,4 +183,44 @@ public class Easy {
         digits[0] = 1;
         return digits;
     }
+
+    /**
+     * 70. Climbing Stairs
+     *
+     * @param n
+     * @return
+     */
+    public int climbStairs(int n) {
+        int[] arr = new int[n + 1];
+        arr[0] = 1;
+        arr[1] = 1;
+
+        for (int i = 2; i <= n; i++) {
+            arr[i] = arr[i - 1] + arr[i - 2];
+        }
+
+        return arr[n];
+    }
+
+    /**
+     * 88. Merge Sorted Array
+     *
+     * @param nums1
+     * @param m
+     * @param nums2
+     * @param n
+     */
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int i = 0;
+        while (i < n) {
+            nums1[m] = nums2[i];
+            m++;
+            i++;
+        }
+        Arrays.sort(nums1);
+    }
+
+    public int firstUniqueValue(int[] nums) {
+        return -1;
+    }
 }
