@@ -280,8 +280,8 @@ public class Easy {
             map.put(num, map.getOrDefault(num, 0) + 1);
         }
 
-        for (int key : map.keySet()) {
-            if (map.get(key) == 1) return key;
+        for (int num : map.keySet()) {
+            if (map.get(num) == 1) return num;
         }
         return -1;
     }
