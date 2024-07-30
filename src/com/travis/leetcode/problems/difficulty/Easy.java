@@ -151,6 +151,14 @@ public class Easy {
      * @return
      */
     public int searchInsert(int[] nums, int target) {
+        if (nums[nums.length - 1] < target) {
+            return nums.length;
+        } else {
+            for (int i = 0; i < nums.length; i++) {
+                if (nums[i] == target) return i;
+                if (nums[i] > target) return i;
+            }
+        }
         return -1;
     }
 
@@ -182,6 +190,16 @@ public class Easy {
         digits = new int[digits.length + 1];
         digits[0] = 1;
         return digits;
+    }
+
+    /**
+     * 69. Sqrt(x)
+     *
+     * @param x
+     * @return
+     */
+    public int mySqrt(int x) {
+        return (int) Math.sqrt(x);
     }
 
     /**
@@ -220,7 +238,51 @@ public class Easy {
         Arrays.sort(nums1);
     }
 
-    public int firstUniqueValue(int[] nums) {
+    /**
+     * 121. Best Time to Buy and Sell Stock (1ms)
+     *
+     * @param prices
+     * @return
+     */
+    public int maxProfit(int[] prices) {
+        int max = 0;
+        int buy = prices[0];
+        for (int price : prices) {
+            if (price < buy) buy = price;
+            int profit = price - buy;
+            if (profit > max) max = profit;
+        }
+        return max;
+    }
+
+    /**
+     * 125. Valid Palindrome (14ms)
+     *
+     * @param s
+     * @return
+     */
+    public boolean isPalindrome(String s) {
+        s = s.replaceAll("[^A-Za-z0-9]+", "").trim().toLowerCase();
+        String reverse = new StringBuilder(s).reverse().toString();
+        return s.equals(reverse);
+    }
+
+    /**
+     * 136. Single Number (14ms)
+     * Momo Interview
+     *
+     * @param nums
+     * @return
+     */
+    public int singleNumber(int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+
+        for (int key : map.keySet()) {
+            if (map.get(key) == 1) return key;
+        }
         return -1;
     }
 }
