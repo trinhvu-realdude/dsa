@@ -1,12 +1,12 @@
 package com.travis.leetcode.problems;
 
-import com.travis.leetcode.problems.difficulty.Easy;
+import com.travis.leetcode.problems.difficulty.Medium;
 
 public class Main {
     public static void main(String[] args) {
-        Easy easy = new Easy();
+        Medium medium = new Medium();
 
-        int[] nums = {4, 1, 2, 1, 2};
-        System.out.println(easy.singleNumber(nums));
+        String s = "dvdf";
+        System.out.println(medium.lengthOfLongestSubstring(s));
     }
 }
