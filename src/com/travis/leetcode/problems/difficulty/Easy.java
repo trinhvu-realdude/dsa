@@ -304,4 +304,56 @@ public class Easy {
         }
         return -1;
     }
+
+    /**
+     * 217. Contains Duplicate
+     *
+     * @param nums
+     * @return
+     */
+    public boolean containsDuplicate(int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            if (map.get(num) != null) {
+                if (map.get(num) == 1) return true;
+            }
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+        return false;
+    }
+
+    /**
+     * 219. Contains Duplicate II (8ms)
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public boolean containsNearbyDuplicate(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (map.get(nums[i]) != null) {
+                int j = map.get(nums[i]);
+                if (Math.abs(i - j) <= k) return true;
+                else {
+                    map.remove(nums[i]);
+                    map.put(nums[i], i);
+                }
+            } else {
+                map.put(nums[i], i);
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 242. Valid Anagram
+     *
+     * @param s
+     * @param t
+     * @return
+     */
+    public boolean isAnagram(String s, String t) {
+        return false;
+    }
 }

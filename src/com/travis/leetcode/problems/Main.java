@@ -1,12 +1,12 @@
 package com.travis.leetcode.problems;
 
-import com.travis.leetcode.problems.difficulty.Medium;
+import com.travis.leetcode.problems.difficulty.Easy;
 
 public class Main {
     public static void main(String[] args) {
-        Medium medium = new Medium();
+        Easy easy = new Easy();
 
-        String s = "dvdf";
-        System.out.println(medium.lengthOfLongestSubstring(s));
+        String s = "aa", t = "bb";
+        System.out.println(easy.isAnagram(s, t));
     }
 }
