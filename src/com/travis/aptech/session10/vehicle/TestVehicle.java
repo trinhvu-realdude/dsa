@@ -1,4 +1,4 @@
-package com.travis.aptech.session10;
+package com.travis.aptech.session10.vehicle;
 
 public class TestVehicle {
     public static void main(String[] args) {

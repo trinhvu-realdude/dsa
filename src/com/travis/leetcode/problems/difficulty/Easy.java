@@ -35,12 +35,17 @@ public class Easy {
      * @return
      */
     public boolean isPalindrome(int x) {
-        String str = String.valueOf(x);
-        StringBuilder reverse = new StringBuilder();
-        for (int i = str.length() - 1; i >= 0; i--) {
-            reverse.append(str.charAt(i));
+        if (x < 0) return false;
+
+        int reverse = 0;
+        int temp = x;
+
+        while (temp != 0) {
+            int digit = temp % 10;
+            reverse = reverse * 10 + digit;
+            temp /= 10;
         }
-        return str.contentEquals(reverse);
+        return reverse == x;
     }
 
     /**
@@ -355,5 +360,22 @@ public class Easy {
      */
     public boolean isAnagram(String s, String t) {
         return false;
+    }
+
+    /**
+     * 3136. Valid Word
+     * <p>
+     * It contains a minimum of 3 characters.
+     * It contains only digits (0-9), and English letters (uppercase and lowercase).
+     * It includes at least one vowel.
+     * It includes at least one consonant.
+     *
+     * @param word
+     * @return
+     */
+    public boolean isValid1(String word) {
+        if (word.length() < 3) return false;
+        if (!word.contains("u") && !word.contains("e") && !word.contains("o") && !word.contains("a") && !word.contains("i")) return false;
+        return true;
     }
 }
